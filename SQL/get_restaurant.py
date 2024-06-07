@@ -79,7 +79,7 @@ def print_restaurants(restaurants):
         print(f"{idx}. {name}, {place_id}, ({latitude}, {longitude}), {rating}, {user_ratings_total}")
 
 if __name__ == "__main__":
-    api_key = "AIzaSyC064S8Zgb8lJGUeGG2-tX6vN2VFBW5bbM"
+    api_key = ""
     location = "25.0151, 121.5340" # 公館
     radius = 2000 # meter
 
