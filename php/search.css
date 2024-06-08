@@ -77,7 +77,7 @@ button {
   border: none;
   z-index: 1;
 }
-.search-restaurant {
+.search {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -111,7 +111,7 @@ button {
   border: none;
   z-index: 3;
 }
-.heart-list {
+.hope {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -145,7 +145,7 @@ button {
   border: none;
   z-index: 5;
 }
-.favorite-list {
+.love {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -193,7 +193,7 @@ button {
   white-space: nowrap;
   z-index: 8;
 }
-.button-setting {
+.logout-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -209,7 +209,7 @@ button {
   border: none;
   z-index: 9;
 }
-.setting {
+.logout {
   flex-shrink: 0;
   flex-basis: auto;
   position: relative;
@@ -230,7 +230,7 @@ button {
   margin: 92.523px 0 0 52px;
   z-index: 18;
 }
-.rectangle {
+.restaurant-table {
   position: absolute;
   width: 577px;
   height: 768px;
@@ -295,18 +295,7 @@ button {
   white-space: nowrap;
   z-index: 16;
 }
-.rectangle-2 {
-  position: absolute;
-  width: 112px;
-  height: 39px;
-  top: 418px;
-  left: 1196px;
-  background: url(./images/06209647-5dd1-4b66-85b0-476df70e5b3f.png)
-    no-repeat center;
-  background-size: cover;
-  z-index: 17;
-}
-.radius {
+.radius-input {
   position: absolute;
   width: 89px;
   height: 37px;
@@ -315,7 +304,7 @@ button {
   background: #d9d9d9;
   z-index: 14;
 }
-.half-radius {
+.radius {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -332,7 +321,7 @@ button {
   white-space: nowrap;
   z-index: 13;
 }
-.sort {
+.search-condition-input {
   position: absolute;
   width: 136px;
   height: 37px;
