@@ -239,13 +239,12 @@ button {
   background: #d9d9d9;
   z-index: 12;
 }
-.rectangle-1 {
+#google-map {
   position: absolute;
   width: 678px;
   height: 380px;
   top: 0;
   left: 655px;
-  background: #d9d9d9;
   z-index: 11;
 }
 .button {
