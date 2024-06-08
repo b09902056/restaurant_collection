@@ -24,7 +24,7 @@ button {
 .main-container {
   position: relative;
   width: 1440px;
-  height: 1024px;
+  height: 800px;
   margin: 0 auto;
   background: #ffffff;
   overflow: hidden;
@@ -232,13 +232,61 @@ button {
 }
 .restaurant-table {
   position: absolute;
-  width: 577px;
-  height: 768px;
+  width: 600px;
+  height: 600px;
   top: 0;
   left: 0;
-  background: #d9d9d9;
+  background: #ffffff;
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: auto; /* Enable horizontal scrolling if needed */
+  border: 1px solid #ccc;
   z-index: 12;
 }
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    text-align: left;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+tr {
+  font-size: 16px;
+  font-family: Inter, var(--default-font-family);
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.actions a,
+.actions button {
+    margin-left: 10px;
+}
+
+.actions button {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.actions a {
+    text-decoration: none;
+    color: #007bff;
+}
+
 #google-map {
   position: absolute;
   width: 678px;
@@ -247,7 +295,61 @@ button {
   left: 655px;
   z-index: 11;
 }
-.button {
+.radius {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 49px;
+  top: 420px;
+  left: 655px;
+  color: #000000;
+  font-family: Inter, var(--default-font-family);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 38.727px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 13;
+}
+.radius-input[type=number] {
+  font-size:20px;
+  position: absolute;
+  width: 89px;
+  height: 37px;
+  top: 420px;
+  left: 775px;
+  background: #ffffff;
+  z-index: 14;
+}
+.search-condition {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 39px;
+  top: 420px;
+  left: 880px;
+  color: #000000;
+  font-family: Inter, var(--default-font-family);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 38.727px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 16;
+}
+.search-condition-input {
+  font-size:20px;
+  position: absolute;
+  width: 135px;
+  height: 37px;
+  top: 420px;
+  left: 1015px;
+  background: #ffffff;
+  z-index: 15;
+}
+.start-search-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -277,58 +379,6 @@ button {
   text-align: left;
   white-space: nowrap;
   z-index: 19;
-}
-.search-condition {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  position: absolute;
-  height: 39px;
-  top: 418px;
-  left: 850px;
-  color: #000000;
-  font-family: Inter, var(--default-font-family);
-  font-size: 32px;
-  font-weight: 400;
-  line-height: 38.727px;
-  text-align: left;
-  white-space: nowrap;
-  z-index: 16;
-}
-.radius-input {
-  position: absolute;
-  width: 89px;
-  height: 37px;
-  top: 419px;
-  left: 731px;
-  background: #d9d9d9;
-  z-index: 14;
-}
-.radius {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  position: absolute;
-  height: 49px;
-  top: 420px;
-  left: 655px;
-  color: #000000;
-  font-family: Inter, var(--default-font-family);
-  font-size: 32px;
-  font-weight: 400;
-  line-height: 38.727px;
-  text-align: left;
-  white-space: nowrap;
-  z-index: 13;
-}
-.search-condition-input {
-  position: absolute;
-  width: 136px;
-  height: 37px;
-  top: 420px;
-  left: 985px;
-  background: #d9d9d9;
-  z-index: 15;
 }
 .line {
   position: absolute;

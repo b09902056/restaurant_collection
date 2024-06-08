@@ -24,7 +24,7 @@ if (!isset($_SESSION['username'])) {
         var location = new google.maps.LatLng(25.0151, 121.5340);
         var mapProp= {
             center: location,
-            zoom: 13,
+            zoom: 15,
         };
 
         // https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions
@@ -82,14 +82,46 @@ if (!isset($_SESSION['username'])) {
         </div>
       </div>
       <div class="flex-row-d">
-        <div class="restaurant-table"></div>
+        <div class="restaurant-table">
+                    <table>
+            <thead>
+                <tr>
+                    <th>搜尋結果</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>馬辣頂級麻辣鴛鴦火鍋 台北公館店</td>
+                      <td class="actions">
+                      <a href="#">Link</a>
+                      <button>加入心願</button>
+                      <button>加入最愛</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>樂子瑞安店</td>
+                      <td class="actions">
+                      <a href="#">Link</a>
+                      <button>加入心願</button>
+                      <button>加入最愛</button>
+                    </td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
         <div id="google-map"></div>
-        <button class="button">
-          <span class="start-search">開始搜尋</span></button
-        ><span class="search-condition">搜尋條件</span>
-        <div class="radius-input"></div>
-        <span class="radius">半徑</span>
-        <div class="search-condition-input"></div>
+        <span class="radius">半徑(m)</span>
+        <input type="number" class="radius-input" min="1" max="100000">
+        <span class="search-condition">搜尋條件</span>
+        <select class="search-condition-input">
+          <option value="by-rating">依評分</option>
+          <option value="by-distance">依距離</option>
+          <option value="by-comment-num">依評論數</option>
+          <option value="in-hope">在心願清單</option>
+          <option value="in-love">在我的最愛</option>
+        </select>
+        <button class="start-search-button"><span class="start-search">開始搜尋</span></button>
       </div>
       <div class="line"></div>
     </div>
