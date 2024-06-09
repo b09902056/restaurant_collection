@@ -124,6 +124,16 @@ if (!isset($_SESSION['username'])) {
           });
       }
 
+      function gotoHope(){
+          window.location.href = 'hope.php';
+      }
+      function gotoLove(){
+          window.location.href = 'love.php';
+      }
+      function gotoFriend(){
+          window.location.href = 'friend.php';
+      }
+
     </script>
   </head>
   <body onload="initMap()">
@@ -132,9 +142,9 @@ if (!isset($_SESSION['username'])) {
         <span class="restaurant-system">餐廳收藏系統</span>
         <div class="page-links">
           <button class="search-button"><span class="search">搜尋<br />餐廳</span></button>
-          <button class="hope-button"><span class="hope">心願<br />清單</span></button>
-          <button class="love-button"><span class="love">我的<br />最愛</span></button>
-          <button class="friend-button"><span class="friend">好友</span></button>
+          <button class="hope-button" onclick="gotoHope()"><span class="hope">心願<br />清單</span></button>
+          <button class="love-button" onclick="gotoLove()"><span class="love">我的<br />最愛</span></button>
+          <button class="friend-button" onclick="gotoFriend()"><span class="friend">好友</span></button>
           <form action="logout.php" method="post">
             <button class="logout-button" type="submit"><span class="logout">登出</span></button>
           </form>
