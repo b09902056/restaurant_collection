@@ -9,51 +9,50 @@ CREATE TABLE restaurant (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE user (
-	id INT NOT NULL AUTO_INCREMENT,
-	name VARCHAR(30) NOT NULL UNIQUE,
+	name VARCHAR(30) NOT NULL,
 	password VARCHAR(60) NOT NULL,
-	PRIMARY KEY (id)
+	PRIMARY KEY (name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE hope (
 	restaurant_id VARCHAR(30) NOT NULL,
-    user_id INT NOT NULL,
-	PRIMARY KEY (restaurant_id, user_id),
+    user_name VARCHAR(30) NOT NULL,
+	PRIMARY KEY (restaurant_id, user_name),
     FOREIGN KEY (restaurant_id) REFERENCES restaurant(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+    FOREIGN KEY (user_name) REFERENCES user(name) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE love (
 	restaurant_id VARCHAR(30) NOT NULL,
-    user_id INT NOT NULL,
-	PRIMARY KEY (restaurant_id, user_id),
+    user_name VARCHAR(30) NOT NULL,
+	PRIMARY KEY (restaurant_id, user_name),
     FOREIGN KEY (restaurant_id) REFERENCES restaurant(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+    FOREIGN KEY (user_name) REFERENCES user(name) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE message (
 	restaurant_id VARCHAR(30) NOT NULL,
-    user_id INT NOT NULL,
+    user_name VARCHAR(30) NOT NULL,
 	text VARCHAR(100),
-	PRIMARY KEY (restaurant_id, user_id),
+	PRIMARY KEY (restaurant_id, user_name),
     FOREIGN KEY (restaurant_id) REFERENCES restaurant(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+    FOREIGN KEY (user_name) REFERENCES user(name) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE tag (
 	restaurant_id VARCHAR(30) NOT NULL,
-    user_id INT NOT NULL,
+    user_name VARCHAR(30) NOT NULL,
 	keyword VARCHAR(30),
-	PRIMARY KEY (restaurant_id, user_id, keyword),
+	PRIMARY KEY (restaurant_id, user_name, keyword),
     FOREIGN KEY (restaurant_id) REFERENCES restaurant(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+    FOREIGN KEY (user_name) REFERENCES user(name) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE friend (
-	user1_id INT NOT NULL,
-    user2_id INT NOT NULL,
+	user1_name VARCHAR(30) NOT NULL,
+    user2_name VARCHAR(30) NOT NULL,
 	text VARCHAR(100),
-	PRIMARY KEY (user1_id, user2_id),
-    FOREIGN KEY (user1_id) REFERENCES user(id) ON DELETE CASCADE,
-    FOREIGN KEY (user2_id) REFERENCES user(id) ON DELETE CASCADE
+	PRIMARY KEY (user1_name, user2_name),
+    FOREIGN KEY (user1_name) REFERENCES user(name) ON DELETE CASCADE,
+    FOREIGN KEY (user2_name) REFERENCES user(name) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

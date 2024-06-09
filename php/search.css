@@ -287,6 +287,11 @@ tr {
     color: #007bff;
 }
 
+.link {
+    text-decoration: none;
+    color: #007bff;
+}
+
 #google-map {
   position: absolute;
   width: 678px;

@@ -4,6 +4,7 @@ if (!isset($_SESSION['username'])) {
     header("Location: register_login.php");
     exit();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -15,13 +16,17 @@ if (!isset($_SESSION['username'])) {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" />
     <link rel="stylesheet" href="search.css" />
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC064S8Zgb8lJGUeGG2-tX6vN2VFBW5bbM&language=zh-TW"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
       let map;
       let marker;
       let circle;
+      let latitude = 25.0151;
+      let longitude = 121.5340;
+
       function initMap() {
 
-        var location = new google.maps.LatLng(25.0151, 121.5340);
+        var location = new google.maps.LatLng(latitude, longitude);
         var mapProp= {
             center: location,
             zoom: 15,
@@ -34,8 +39,10 @@ if (!isset($_SESSION['username'])) {
 
         google.maps.event.addListener(map, 'click', function(event) {
             const location = event.latLng;
+            latitude = location.lat();
+            longitude = location.lng();
             placeMarker(location);
-            placeCircle(location);
+            // placeCircle(location);
             map.panTo(location);
         });
       }
@@ -65,6 +72,50 @@ if (!isset($_SESSION['username'])) {
               map
           });
       }
+
+      function search_restaurants() {
+            // Get values
+            var radius = document.getElementById("radius-input").value;
+            var selectValue = document.getElementById("select-option").value;
+
+            window.alert(radius + " " + selectValue + " " + latitude + " " + longitude)
+      }
+
+      $(document).ready(function(){
+          $("#start-search-button").click(function(){
+              var radius = $("#radius-input").val();
+              var condition = $("#select-option").val();
+              $.ajax({
+                  type: "POST",
+                  url: "search_restaurant.php",
+                  // url: "process.php",
+                  data: { radius: radius, condition: condition },
+                  dataType: 'json', // Expect JSON response
+                  success: function(response){
+
+                      // Clear existing table content
+                      $("#result-table").empty();
+                      
+
+                      $("#result-table").append("<thead><tr><th>搜尋結果</th><th></th></tr></thead>");
+                      $.each(response, function(index, row) {
+                          var name = row[0];
+                          var place_id = row[1];
+                          var tr = $("<tr>");
+                          tr.append("<td>" + name + "</td>");              
+                          var link = "https://www.google.com/maps/place/?q=place_id:" + place_id + "&hl=zh-TW";
+                          var td = $("<td>").addClass("actions");
+                          td.append("<a href=\"" + link + "\" target=\"_blank\">Link</a>");              
+                          td.append("<button>加入心願</button>");              
+                          td.append("<button>加入最愛</button>");
+                          tr.append(td);          
+                          $("#result-table").append(tr);
+                      });
+                  }
+              });
+          });
+      });
+
     </script>
   </head>
   <body onload="initMap()">
@@ -83,7 +134,7 @@ if (!isset($_SESSION['username'])) {
       </div>
       <div class="flex-row-d">
         <div class="restaurant-table">
-                    <table>
+          <table id="result-table">
             <thead>
                 <tr>
                     <th>搜尋結果</th>
@@ -93,15 +144,15 @@ if (!isset($_SESSION['username'])) {
             <tbody>
                 <tr>
                     <td>馬辣頂級麻辣鴛鴦火鍋 台北公館店</td>
-                      <td class="actions">
-                      <a href="#">Link</a>
+                    <td class="actions">
+                      <a href="">Link</a>
                       <button>加入心願</button>
                       <button>加入最愛</button>
                     </td>
                 </tr>
                 <tr>
                     <td>樂子瑞安店</td>
-                      <td class="actions">
+                    <td class="actions">
                       <a href="#">Link</a>
                       <button>加入心願</button>
                       <button>加入最愛</button>
@@ -112,16 +163,16 @@ if (!isset($_SESSION['username'])) {
         </div>
         <div id="google-map"></div>
         <span class="radius">半徑(m)</span>
-        <input type="number" class="radius-input" min="1" max="100000">
+        <input type="number" class="radius-input" id="radius-input" min="1" max="100000" required>
         <span class="search-condition">搜尋條件</span>
-        <select class="search-condition-input">
+        <select class="search-condition-input" id="select-option">
           <option value="by-rating">依評分</option>
           <option value="by-distance">依距離</option>
           <option value="by-comment-num">依評論數</option>
           <option value="in-hope">在心願清單</option>
           <option value="in-love">在我的最愛</option>
         </select>
-        <button class="start-search-button"><span class="start-search">開始搜尋</span></button>
+        <button class="start-search-button" id="start-search-button"><span class="start-search">開始搜尋</span></button>
       </div>
       <div class="line"></div>
     </div>
