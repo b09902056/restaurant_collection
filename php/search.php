@@ -73,14 +73,6 @@ if (!isset($_SESSION['username'])) {
           });
       }
 
-      function search_restaurants() {
-            // Get values
-            var radius = document.getElementById("radius-input").value;
-            var selectValue = document.getElementById("select-option").value;
-
-            window.alert(radius + " " + selectValue + " " + latitude + " " + longitude)
-      }
-
       $(document).ready(function(){
           $("#start-search-button").click(function(){
               var radius = $("#radius-input").val();
@@ -88,7 +80,7 @@ if (!isset($_SESSION['username'])) {
               $.ajax({
                   type: "POST",
                   url: "search_restaurant.php",
-                  data: { radius: radius, condition: condition },
+                  data: { radius: radius, condition: condition, latitude: latitude, longitude, longitude },
                   dataType: 'json', // Expect JSON response
                   success: function(response){
                       $("#table-body").empty();

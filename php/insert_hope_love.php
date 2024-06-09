@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $user_name = $_SESSION['username'];
 
     $hostname = "140.122.184.129:3310";
     $db_username = "team14";
@@ -13,7 +14,6 @@
         }
 
         $restaurant_id = $_POST["restaurant_id"];
-        $user_name = $_SESSION['username'];
 
         $sql = "INSERT IGNORE INTO hope (restaurant_id, user_name) VALUES ('$restaurant_id', '$user_name')";
         
@@ -29,7 +29,6 @@
         }
 
         $restaurant_id = $_POST["restaurant_id"];
-        $user_name = $_SESSION['username'];
 
         $sql = "INSERT IGNORE INTO love (restaurant_id, user_name) VALUES ('$restaurant_id', '$user_name')";
         
