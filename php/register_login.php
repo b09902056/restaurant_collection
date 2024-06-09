@@ -35,7 +35,7 @@
         $sql = "SELECT * FROM user WHERE name = '$username'";
         $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($username == "admin" || $result->num_rows > 0) {
             echo "Username already exists. Please choose a different username.";
         }
         else{
@@ -54,31 +54,43 @@
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-        $conn = new mysqli($hostname, $db_username, $db_password, $database);
-
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        $sql = "SELECT * FROM user WHERE name='$username'";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows == 0) {
-            echo "No user found with this username.";
-        }
-        else {
-            $row = $result->fetch_assoc();
-            if (password_verify($password, $row['password'])) {
-                session_start();
-                $_SESSION['username'] = $username;
-                header("Location: search.php");
-            }
-            else {
+        if ($username == "admin"){
+            if ($password != "admin123"){
                 echo "Invalid password.";
             }
+            else{
+                session_start();
+                $_SESSION['username'] = "admin";
+                header("Location: admin.php");
+            }
         }
+        else{
+            $conn = new mysqli($hostname, $db_username, $db_password, $database);
 
-        $conn->close();
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            $sql = "SELECT * FROM user WHERE name='$username'";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows == 0) {
+                echo "No user found with this username.";
+            }
+            else {
+                $row = $result->fetch_assoc();
+                if (password_verify($password, $row['password'])) {
+                    session_start();
+                    $_SESSION['username'] = $username;
+                    header("Location: search.php");
+                }
+                else {
+                    echo "Invalid password.";
+                }
+            }
+
+            $conn->close();
+        }
     }
 
 ?>
