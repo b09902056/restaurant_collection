@@ -23,26 +23,5 @@
 
     $conn->close();
 
-// Receive the data
-// $radius = $_POST['radius'];
-// $condition = $_POST['condition'];
-
-// Process the data (You can call your PHP function here)
-// $result = your_php_function($radius, $condition);
-
-// Output the result as JSON
     echo json_encode($array);
-
-// Define your_php_function to generate a 2D array
-function your_php_function($input, $select) {
-    // Perform your logic here to generate a 2D array
-    // For example:
-    $array = array(
-        array("馬辣頂級麻辣鴛鴦火鍋 台北公館店", "ChIJycu5coupQjQRl9dmANfpHuw"),
-        array("馬辣頂級麻辣鴛鴦火鍋 台北公館店", "ChIJycu5coupQjQRl9dmANfpHuw"),
-    );
-    return $array;
-
-    //  return "<td>$input - $select</td>";
-}
 ?>

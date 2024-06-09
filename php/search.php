@@ -88,16 +88,11 @@ if (!isset($_SESSION['username'])) {
               $.ajax({
                   type: "POST",
                   url: "search_restaurant.php",
-                  // url: "process.php",
                   data: { radius: radius, condition: condition },
                   dataType: 'json', // Expect JSON response
                   success: function(response){
-
-                      // Clear existing table content
-                      $("#result-table").empty();
+                      $("#table-body").empty();
                       
-
-                      $("#result-table").append("<thead><tr><th>搜尋結果</th><th></th></tr></thead>");
                       $.each(response, function(index, row) {
                           var name = row[0];
                           var place_id = row[1];
@@ -106,15 +101,36 @@ if (!isset($_SESSION['username'])) {
                           var link = "https://www.google.com/maps/place/?q=place_id:" + place_id + "&hl=zh-TW";
                           var td = $("<td>").addClass("actions");
                           td.append("<a href=\"" + link + "\" target=\"_blank\">Link</a>");              
-                          td.append("<button>加入心願</button>");              
-                          td.append("<button>加入最愛</button>");
+                          td.append("<button onclick=\"insert_hope('" + place_id + "')\">加入心願</button>");              
+                          td.append("<button onclick=\"insert_love('" + place_id + "')\">加入最愛</button>");              
                           tr.append(td);          
-                          $("#result-table").append(tr);
+                          $("#table-body").append(tr);
                       });
                   }
               });
           });
       });
+
+      function insert_hope(restaurant_id){
+          $.ajax({
+            url: "insert_hope_love.php",
+            type: "POST",
+            data: { action: 'insert_hope', restaurant_id: restaurant_id },
+            success: function(response){
+                alert("成功加入心願清單");
+            }
+          });
+      }
+      function insert_love(restaurant_id){
+          $.ajax({
+            url: "insert_hope_love.php",
+            type: "POST",
+            data: { action: 'insert_love', restaurant_id: restaurant_id },
+            success: function(response){
+                alert("成功加入我的最愛");
+            }
+          });
+      }
 
     </script>
   </head>
@@ -134,30 +150,14 @@ if (!isset($_SESSION['username'])) {
       </div>
       <div class="flex-row-d">
         <div class="restaurant-table">
-          <table id="result-table">
+          <table>
             <thead>
                 <tr>
                     <th>搜尋結果</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>馬辣頂級麻辣鴛鴦火鍋 台北公館店</td>
-                    <td class="actions">
-                      <a href="">Link</a>
-                      <button>加入心願</button>
-                      <button>加入最愛</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>樂子瑞安店</td>
-                    <td class="actions">
-                      <a href="#">Link</a>
-                      <button>加入心願</button>
-                      <button>加入最愛</button>
-                    </td>
-                </tr>
+            <tbody id="table-body">
             </tbody>
           </table>
         </div>
