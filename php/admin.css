@@ -124,7 +124,11 @@ button {
   cursor: pointer;
   background: #d1e8fc;
   border: none;
+  border-radius: 10px;
   z-index: 5;
+}
+.logout-button:hover {
+  background-color: #97E1FA;
 }
 .logout-span {
   flex-shrink: 0;
@@ -164,7 +168,7 @@ button {
 }
 input[type="submit"] {
   background-color: #D2E8FD;
-  color: #000000;
+  color: #1a4ed4;
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
@@ -175,7 +179,10 @@ input[type="submit"] {
   cursor: pointer;
   font-family: Inter, var(--default-font-family);
   font-size: 20px;
-  border-radius: 4px;
+  border-radius: 10px;
+}
+input[type="submit"]:hover{
+  background-color: #97E1FA;
 }
 .flex-column-e {
   position: absolute;
@@ -248,7 +255,10 @@ tr {
     padding: 5px 10px;
     border: none;
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 5px;
+}
+.actions button:hover {
+  background-color: #ccc;
 }
 
 .actions a {
@@ -277,7 +287,7 @@ tr {
   top: 170px;
   left: 460px;
   background-color: #D2E8FD;
-  color: #000000;
+  color: #1a4ed4;
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
@@ -288,8 +298,11 @@ tr {
   cursor: pointer;
   font-family: Inter, var(--default-font-family);
   font-size: 20px;
-  border-radius: 4px;
+  border-radius: 10px;
   z-index: 11;
+}
+.search-button:hover {
+  background-color: #97E1FA;
 }
 .search {
   flex-shrink: 0;
