@@ -30,7 +30,7 @@
                       $.each(response, function(index, row) {
                           var name = row[0];
                           var id = row[1];
-                          var tr = $("<tr>");
+                          var tr = $("<tr id=\"" + id + "\">");
                           tr.append("<td>" + name + "</td>");              
                           var td = $("<td>").addClass("actions");
                           td.append("<button onclick=\"modifyRestaurant('" + id + "')\">修改</button>");              
@@ -61,6 +61,19 @@
       }
 
       function deleteRestaurant(id){
+          var row = document.getElementById(id);
+          if (row) {
+              row.remove();
+          }
+          $.ajax({
+            type: "POST",
+            url: "insert_update_delete_restaurant.php",
+            data: { action: "delete", id: id },
+            dataType: 'text',
+            success: function(response){
+
+            }
+          });
 
       }
 
@@ -76,8 +89,8 @@
 
           $.ajax({
             type: "POST",
-            url: "insert_update_restaurant.php",
-            data: { id: id, name: name, latitude: latitude, longitude: longitude, rating: rating, comment_num: comment_num },
+            url: "insert_update_delete_restaurant.php",
+            data: { action: "insertUpdate", id: id, name: name, latitude: latitude, longitude: longitude, rating: rating, comment_num: comment_num },
             dataType: 'text',
             success: function(response){
               document.getElementById("message").textContent = response;
@@ -90,8 +103,8 @@
     <div class="main-container">
       <div class="flex-column-ef">
         <div class="page-links">
-          <!-- <button class="friend"><span class="data-modify">資料<br />修改</span></button> -->
-          <!-- <button class="setting-button"><span class="rank-list-span">排行榜</span></button> -->
+          <button class="friend"><span class="data-modify">資料<br />修改</span></button>
+          <button class="setting-button"><span class="rank-list-span">排行榜</span></button>
           <form action="logout.php" method="post">
             <button class="logout-button" type="submit"><span class="logout-span">登出</span></button>
           </form>

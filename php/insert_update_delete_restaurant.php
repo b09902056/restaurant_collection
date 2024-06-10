@@ -4,7 +4,26 @@
     $db_password = "3n/S(z!Uk-mRxs_Z";
     $database = "team14";
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'delete') {
+        $id = $_POST["id"];
+
+        $conn = new mysqli($hostname, $db_username, $db_password, $database);            
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "DELETE FROM restaurant WHERE id='$id'";
+
+        if ($conn->query($sql) === TRUE) {
+            $message = "刪除成功!";
+        }
+
+        $conn->close();
+
+        echo $message;
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST["action"] == "insertUpdate") {
         $id = $_POST["id"];
         $name = $_POST["name"];
         $latitude = $_POST["latitude"];
