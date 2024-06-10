@@ -4,57 +4,6 @@
         header("Location: register_login.php");
         exit();
     }
-
-    $message = '';
-
-    $hostname = "140.122.184.129:3310";
-    $db_username = "team14";
-    $db_password = "3n/S(z!Uk-mRxs_Z";
-    $database = "team14";
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['form_submitted']) && $_POST['form_submitted'] == '1') {
-        $id = $_POST["id-input"];
-        $name = $_POST["name-input"];
-        $latitude = $_POST["latitude-input"];
-        $longitude = $_POST["longitude-input"];
-        $rating = $_POST["rating-input"];
-        $comment_num = $_POST["comment_num-input"];
-
-        $conn = new mysqli($hostname, $db_username, $db_password, $database);            
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        $sql = "SELECT * FROM restaurant WHERE id='$id'";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows == 0) {
-            $sql = "INSERT INTO restaurant (id, name, latitude, longitude, rating, comment_num) 
-                    VALUES ('$id', '$name', '$latitude', '$longitude', '$rating', '$comment_num')";
-        
-            if ($conn->query($sql) === TRUE) {
-                $message = "新增成功!";
-            }
-            else {
-                $message = "Error: " . $sql . "<br>" . $conn->error;
-            }
-        }
-        else {
-            $sql = "UPDATE restaurant
-                    SET name = '$name', latitude = '$latitude', longitude = '$longitude', rating = '$rating', comment_num = '$comment_num'
-                    WHERE id = $id";
-            
-            if ($conn->query($sql) === TRUE) {
-                $message = "修改成功!";
-            }
-            else {
-                $message = "Error: " . $sql . "<br>" . $conn->error;
-            }
-        }
-
-        $conn->close();
-    }
-
 ?>
 
 <!DOCTYPE html>
@@ -69,11 +18,11 @@
     <script>
       $(document).ready(function(){
           $("#search-button").click(function(){
-              var name = $("#name-input").val();
+              var name = $("#restaurant-name-input").val();
               $.ajax({
                   type: "POST",
-                  url: "search_restaurant_name.php",
-                  data: { name: name },
+                  url: "search_restaurant_admin.php",
+                  data: { action: "byName", name: name },
                   dataType: 'json', // Expect JSON response
                   success: function(response){
                       $("#table-body").empty();
@@ -95,11 +44,45 @@
       });
 
       function modifyRestaurant(id){
-
+          $.ajax({
+            type: "POST",
+            url: "search_restaurant_admin.php",
+            data: { action: 'byId', id: id },
+            dataType: 'json', // Expect JSON response
+            success: function(response){
+                document.getElementById("id-input").value = String(response['id']);
+                document.getElementById("name-input").value = String(response['name']);
+                document.getElementById("latitude-input").value = String(response['latitude']);
+                document.getElementById("longitude-input").value = String(response['longitude']);
+                document.getElementById("rating-input").value = String(response['rating']);
+                document.getElementById("comment_num-input").value = String(response['comment_num']);
+            }
+          });
       }
 
       function deleteRestaurant(id){
 
+      }
+
+      function insert_update_restaurant(){
+          event.preventDefault();
+
+          var id = document.getElementById("id-input").value;
+          var name = document.getElementById("name-input").value; 
+          var latitude = document.getElementById("latitude-input").value;
+          var longitude = document.getElementById("longitude-input").value;
+          var rating = document.getElementById("rating-input").value;
+          var comment_num = document.getElementById("comment_num-input").value;
+
+          $.ajax({
+            type: "POST",
+            url: "insert_update_restaurant.php",
+            data: { id: id, name: name, latitude: latitude, longitude: longitude, rating: rating, comment_num: comment_num },
+            dataType: 'text',
+            success: function(response){
+              document.getElementById("message").textContent = response;
+            }
+          });
       }
     </script>
   </head>
@@ -115,54 +98,46 @@
         </div>
         <span class="restaurant-edit-span">新增/修改餐廳</span>
         <div class="modify-form">
-          <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+          <form  onsubmit="insert_update_restaurant()">
             <table>
                 <tr>
                     <td>id</td>
-                    <td><input type="text" name="id-input" required></td>
+                    <td><input id="id-input" type="text" name="id-input" style="width: 300px;" required></td>
                 </tr>
                 <tr>
                     <td>name</td>
-                    <td><input type="text" name="name-input" required></td>
+                    <td><input id="name-input" type="text" name="name-input" style="width: 300px;" required></td>
                 </tr>
                 <tr>
                     <td>latitude</td>
-                    <td><input type="number" min="-90" max="90" name="latitude-input" required></td>
+                    <td><input id="latitude-input" type="number" step="0.0001" min="-90" max="90" name="latitude-input" style="width: 80px;" required></td>
                 </tr>
                 <tr>
                     <td>longitude</td>
-                    <td><input type="number"  min="-180" max="180" name="longitude-input" required></td>
+                    <td><input id="longitude-input" type="number" step="0.0001" min="-180" max="180" name="longitude-input" style="width: 80px;" required></td>
                 </tr>
                 <tr>
                     <td>rating</td>
-                    <td><input type="number" step="0.1" min="1" max="5" name="rating-input" required></td>
+                    <td><input id="rating-input" type="number" step="0.1" min="1" max="5" name="rating-input" style="width: 80px;" required></td>
                 </tr>
                 <tr>
                     <td>comment_num</td>
-                    <td><input type="number" min="0" name="comment_num-input" required></td>
+                    <td><input id="comment_num-input" type="number" min="0" name="comment_num-input" style="width: 80px;" required></td>
                 </tr>
             </table>
             <input type="hidden" name="form_submitted" value="1">
             <br>
             <input type="submit" value="儲存">
-            <?php
-            if ($message) {
-                echo "<p style=\"color:red;\">$message</p>";
-            }
-            ?>
+            <p id="message" style="color:red;"></p>
         </form>
         </div>
       </div>
       <div class="flex-column-e">
         <span class="restaurant-collection-system">餐廳收藏系統(管理員)</span>
 
-        <!-- <form method="post"> -->
           <span class="restaurant-name">餐廳名字</span>
-          <input type="text" class="name-input" id="name-input" placeholder="輸入關鍵字" required>
-          <!-- <button class="frame"><span class="search">搜尋</span></button> -->
-          <!-- <input type="submit" value="搜尋" class="search-button"> -->
+          <input type="text" class="name-input" id="restaurant-name-input" placeholder="輸入關鍵字" required>
           <button class="search-button" id="search-button">搜尋</button>
-        <!-- </form> -->
 
         <div class="restaurant-table">
           <table>
