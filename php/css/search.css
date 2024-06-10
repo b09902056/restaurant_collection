@@ -418,7 +418,7 @@ tr {
   height: 25px;
   top: 140px;
   left: 0;
-  background: url(./images/blue-line.png)
+  background: url(../images/blue-line.png)
     no-repeat center;
   background-size: cover;
   z-index: 20;
