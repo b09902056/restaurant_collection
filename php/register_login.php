@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="register_login.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" />
     <title>Register and Login</title>
 </head>
 <body>
     <h1>餐廳收藏系統</h1>
     <form action="register_login.php" method="post">
-        <label for="username">名字:</label><br>
+        <label for="username">名字</label><br>
         <input type="text" id="username" name="username" required><br>
-        <label for="password">密碼:</label><br>
+        <label for="password">密碼</label><br>
         <input type="password" id="password" name="password" required><br>
         <input type="submit" name="login" value="登入">
         <input type="submit" name="register" value="註冊">
