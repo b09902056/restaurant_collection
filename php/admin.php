@@ -87,10 +87,17 @@
           var rating = document.getElementById("rating-input").value;
           var comment_num = document.getElementById("comment_num-input").value;
 
+          var submitType = event.submitter.value;
+          if (submitType === "新增") {
+              var action = "insert";
+          } else if (submitType === "修改") {
+              var action = "update";
+          }
+
           $.ajax({
             type: "POST",
             url: "insert_update_delete_restaurant.php",
-            data: { action: "insertUpdate", id: id, name: name, latitude: latitude, longitude: longitude, rating: rating, comment_num: comment_num },
+            data: { action: action, id: id, name: name, latitude: latitude, longitude: longitude, rating: rating, comment_num: comment_num },
             dataType: 'text',
             success: function(response){
               document.getElementById("message").textContent = response;
@@ -103,15 +110,15 @@
     <div class="main-container">
       <div class="flex-column-ef">
         <div class="page-links">
-          <button class="friend"><span class="data-modify">資料<br />修改</span></button>
-          <button class="setting-button"><span class="rank-list-span">排行榜</span></button>
+          <!-- <button class="friend"><span class="data-modify">資料<br />修改</span></button>
+          <button class="setting-button"><span class="rank-list-span">排行榜</span></button> -->
           <form action="logout.php" method="post">
             <button class="logout-button" type="submit"><span class="logout-span">登出</span></button>
           </form>
         </div>
         <span class="restaurant-edit-span">新增/修改餐廳</span>
         <div class="modify-form">
-          <form  onsubmit="insert_update_restaurant()">
+          <form onsubmit="insert_update_restaurant()">
             <table>
                 <tr>
                     <td>id</td>
@@ -140,7 +147,8 @@
             </table>
             <input type="hidden" name="form_submitted" value="1">
             <br>
-            <input type="submit" value="儲存">
+            <input type="submit" value="新增">
+            <input type="submit" value="修改">
             <p id="message" style="color:red;"></p>
         </form>
         </div>

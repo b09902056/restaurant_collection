@@ -23,7 +23,45 @@
         echo $message;
     }
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST["action"] == "insertUpdate") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST["action"] == "insert") {
+        $id = $_POST["id"];
+        $name = $_POST["name"];
+        $latitude = $_POST["latitude"];
+        $longitude = $_POST["longitude"];
+        $rating = $_POST["rating"];
+        $comment_num = $_POST["comment_num"];
+
+        $conn = new mysqli($hostname, $db_username, $db_password, $database);            
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT * FROM restaurant WHERE id='$id'";
+        $result = $conn->query($sql);
+
+        $message = "";
+
+        if ($result->num_rows > 0) {
+            $message = "無法新增: id 已經存在";
+        }
+        else {
+            $sql = "INSERT INTO restaurant (id, name, latitude, longitude, rating, comment_num) 
+                    VALUES ('$id', '$name', '$latitude', '$longitude', '$rating', '$comment_num')";
+        
+            if ($conn->query($sql) === TRUE) {
+                $message = "新增成功!";
+            }
+            else {
+                $message = "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+
+        $conn->close();
+
+        echo $message;
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST["action"] == "update") {
         $id = $_POST["id"];
         $name = $_POST["name"];
         $latitude = $_POST["latitude"];
@@ -42,15 +80,7 @@
         $message = "";
 
         if ($result->num_rows == 0) {
-            $sql = "INSERT INTO restaurant (id, name, latitude, longitude, rating, comment_num) 
-                    VALUES ('$id', '$name', '$latitude', '$longitude', '$rating', '$comment_num')";
-        
-            if ($conn->query($sql) === TRUE) {
-                $message = "新增成功!";
-            }
-            else {
-                $message = "Error: " . $sql . "<br>" . $conn->error;
-            }
+            $message = "無法修改: id 不存在";
         }
         else {
             $sql = "UPDATE restaurant
