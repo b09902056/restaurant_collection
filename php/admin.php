@@ -90,8 +90,8 @@
     <div class="main-container">
       <div class="flex-column-ef">
         <div class="page-links">
-          <button class="friend"><span class="data-modify">資料<br />修改</span></button>
-          <button class="setting-button"><span class="rank-list-span">排行榜</span></button>
+          <!-- <button class="friend"><span class="data-modify">資料<br />修改</span></button> -->
+          <!-- <button class="setting-button"><span class="rank-list-span">排行榜</span></button> -->
           <form action="logout.php" method="post">
             <button class="logout-button" type="submit"><span class="logout-span">登出</span></button>
           </form>

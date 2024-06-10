@@ -18,11 +18,11 @@ if (!isset($_SESSION['username'])) {
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC064S8Zgb8lJGUeGG2-tX6vN2VFBW5bbM&language=zh-TW"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-      let map;
-      let marker;
-      let circle;
-      let latitude = 25.0151;
-      let longitude = 121.5340;
+      var map;
+      var marker;
+      var circle;
+      var latitude = 25.0151;
+      var longitude = 121.5340;
 
       function initMap() {
 
@@ -42,7 +42,9 @@ if (!isset($_SESSION['username'])) {
             latitude = location.lat();
             longitude = location.lng();
             placeMarker(location);
-            // placeCircle(location);
+            if (circle) {
+                circle.setMap(null);
+            }
             map.panTo(location);
         });
       }
@@ -57,19 +59,19 @@ if (!isset($_SESSION['username'])) {
           });
       }
 
-      function placeCircle(location) {
+      function placeCircle(location, radius) {
           if (circle) {
               circle.setMap(null);
           }
           circle = new google.maps.Circle({
               center:location,
-              radius:2000,
+              radius:parseFloat(radius),
               strokeColor:"#FF0000",
               strokeOpacity:0.8,
               strokeWeight:2,
               fillColor:"#FF0000",
-              fillOpacity:0.1,
-              map
+              fillOpacity:0.05,
+              map: map
           });
       }
 
@@ -77,6 +79,9 @@ if (!isset($_SESSION['username'])) {
           $("#start-search-button").click(function(){
               var radius = $("#radius-input").val();
               var condition = $("#select-option").val();
+
+              placeCircle(new google.maps.LatLng(latitude, longitude), radius);
+
               $.ajax({
                   type: "POST",
                   url: "search_restaurant.php",
