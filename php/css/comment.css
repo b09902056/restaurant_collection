@@ -24,7 +24,7 @@ button {
 .main-container {
   position: relative;
   width: 1440px;
-  height: 800px;
+  height: 1024px;
   margin: 0 auto;
   background: #ffffff;
   overflow: hidden;
@@ -75,7 +75,11 @@ button {
   cursor: pointer;
   background: #d1e8fc;
   border: none;
+  border-radius: 10px;
   z-index: 1;
+}
+.search-button:hover {
+  background-color: #97E1FA;
 }
 .search {
   display: flex;
@@ -109,7 +113,11 @@ button {
   cursor: pointer;
   background: #d1e8fc;
   border: none;
+  border-radius: 10px;
   z-index: 3;
+}
+.hope-button:hover {
+  background-color: #97E1FA;
 }
 .hope {
   display: flex;
@@ -143,7 +151,11 @@ button {
   cursor: pointer;
   background: #d1e8fc;
   border: none;
+  border-radius: 10px;
   z-index: 5;
+}
+.love-button:hover {
+  background-color: #97E1FA;
 }
 .love {
   display: flex;
@@ -177,7 +189,11 @@ button {
   cursor: pointer;
   background: #d1e8fc;
   border: none;
+  border-radius: 10px;
   z-index: 7;
+}
+.friend-button:hover {
+  background-color: #97E1FA;
 }
 .friend {
   flex-shrink: 0;
@@ -207,7 +223,11 @@ button {
   cursor: pointer;
   background: #d1e8fc;
   border: none;
+  border-radius: 10px;
   z-index: 9;
+}
+.logout-button:hover {
+  background-color: #97E1FA;
 }
 .logout {
   flex-shrink: 0;
