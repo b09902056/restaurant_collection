@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register and Login</title>
+    <title>Restaurant Collection</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./css/register_login.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" />
