@@ -1,3 +1,3 @@
 <?php
-    echo "friend.php";
+    echo "好友功能 未來將推出";
 ?>
