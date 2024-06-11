@@ -157,7 +157,7 @@
         <span class="restaurant-collection-system">餐廳收藏系統(管理員)</span>
 
           <span class="restaurant-name">餐廳名字</span>
-          <input type="text" class="name-input" id="restaurant-name-input" placeholder="輸入關鍵字" required>
+          <input type="text" class="name-input" id="restaurant-name-input" placeholder="餐廳名字 substring" required>
           <button class="search-button" id="search-button">搜尋</button>
 
         <div class="restaurant-table">
